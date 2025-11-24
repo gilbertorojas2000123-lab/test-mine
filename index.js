@@ -27,6 +27,10 @@ app.get("/price", async (req, res) => {
   // response.setHeader('Vercel-CDN-Cache-Control', 'max-age=1');
   // response.setHeader('CDN-Cache-Control', 'max-age=1');
   // response.setHeader('Cache-Control', 'max-age=1');
+  
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("CDN-Cache-Control", "no-store");
+  res.setHeader("Vercel-CDN-Cache-Control", "no-store");
   const url = "https://coinmarketcap.com/currencies/meowcoin/";
   let browser, page;
 
