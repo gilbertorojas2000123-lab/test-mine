@@ -22,6 +22,7 @@ const generateRandomUA = () => {
 const app = express();
 
 app.get("/price", async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
   const url = "https://coinmarketcap.com/currencies/meowcoin/";
   let browser, page;
 
