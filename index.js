@@ -23,10 +23,10 @@ const generateRandomUA = () => {
 const app = express();
 
 app.get("/price", async (req, res) => {
-  // response.setHeader('Cache-Control', 'public, s-maxage=1');
-  response.setHeader('Vercel-CDN-Cache-Control', 'max-age=1');
-  response.setHeader('CDN-Cache-Control', 'max-age=1');
-  response.setHeader('Cache-Control', 'max-age=1');
+  response.setHeader('Cache-Control', 'public, s-maxage=1');
+  // response.setHeader('Vercel-CDN-Cache-Control', 'max-age=1');
+  // response.setHeader('CDN-Cache-Control', 'max-age=1');
+  // response.setHeader('Cache-Control', 'max-age=1');
   const url = "https://coinmarketcap.com/currencies/meowcoin/";
   let browser, page;
 
