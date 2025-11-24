@@ -5,8 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch index.js",
-    "postinstall": "playwright install chromium"
+    "start": "node --watch index.js"
   },
   "keywords": [],
   "author": "Ives van Hoorne",
