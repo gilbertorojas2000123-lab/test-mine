@@ -1,6 +1,7 @@
 import express from "express";
 import { chromium } from 'playwright-core'
 import chromiumBinary from '@sparticuz/chromium'
+import { VercelResponse } from '@vercel/node';
 
 const generateRandomUA = () => {
   // Array of random user agents
@@ -22,7 +23,10 @@ const generateRandomUA = () => {
 const app = express();
 
 app.get("/price", async (req, res) => {
-    res.setHeader("Cache-Control", "no-store");
+  // response.setHeader('Cache-Control', 'public, s-maxage=1');
+  response.setHeader('Vercel-CDN-Cache-Control', 'max-age=1');
+  response.setHeader('CDN-Cache-Control', 'max-age=1');
+  response.setHeader('Cache-Control', 'max-age=1');
   const url = "https://coinmarketcap.com/currencies/meowcoin/";
   let browser, page;
 
