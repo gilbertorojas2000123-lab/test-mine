@@ -3,9 +3,12 @@ import { chromium } from 'playwright-core'
 import chromiumBinary from '@sparticuz/chromium'
 
 export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate=1');
+  pkg.setHeader("Cache-Control", "no-store");
+  pkg.setHeader("CDN-Cache-Control", "no-store");
+  pkg.setHeader("Vercel-CDN-Cache-Control", "no-store");
+
   let browser;
-for (let i = 0; i < 3; i++)
+
   try {
     console.log("Starting Chromium...");
     browser = await chromium.launch({
@@ -17,12 +20,11 @@ for (let i = 0; i < 3; i++)
     const context = await browser.newContext();
     const page = await context.newPage();
 
-   await page.goto("https://coinmarketcap.com/currencies/meowcoin/", {
-      waitUntil: "domcontentloaded",
-      timeout: 45000
+    await page.goto("https://coinmarketcap.com/currencies/meowcoin/", {
+      waitUntil: "networkidle",
     });
 
-    await page.waitForSelector('span[data-test="text-cdp-price-display"]', { timeout: 15000 });
+    await page.waitForSelector('span[data-test="text-cdp-price-display"]');
 
     const price = await page.$eval(
       'span[data-test="text-cdp-price-display"]',
@@ -31,8 +33,8 @@ for (let i = 0; i < 3; i++)
 
     return res.json({ price });
   } catch (err) {
-    console.log("Retry", i + 1, "failed");
-    if (i === 2) throw e;
+    console.error(err);
+    return res.status(500).json({ error: err.message });
   } finally {
     if (browser) await browser.close();
   }
