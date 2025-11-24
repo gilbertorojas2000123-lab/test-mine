@@ -12,7 +12,8 @@
   "author": "Ives van Hoorne",
   "license": "MIT",
   "dependencies": {
+    "@sparticuz/chromium": "^141.0.0",
     "express": "^5.1.0",
-    "playwright": "^1.56.1"
+    "playwright-core": "^1.56.1"
   }
 }

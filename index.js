@@ -1,5 +1,6 @@
 import express from "express";
-import { chromium } from "playwright";
+import { chromium } from 'playwright-core'
+import chromiumBinary from '@sparticuz/chromium'
 
 const generateRandomUA = () => {
   // Array of random user agents
@@ -25,7 +26,11 @@ app.get("/price", async (req, res) => {
   let browser, page;
 
   try {
-    browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({
+            args: chromiumBinary.args,
+            executablePath: await chromiumBinary.executablePath(),
+            headless: true,
+        });
 
     const context = await browser.newContext({
       userAgent: generateRandomUA(),
